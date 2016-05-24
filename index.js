@@ -1,6 +1,7 @@
 var express = require('express')
 var app = express()
 var path = require('path');
+app.set('port', (process.env.PORT || 5000));
 
 // view engine setup
 app.set('view engine', 'html');
@@ -11,6 +12,6 @@ app.engine('html', require('hogan-express-strict'));
  
 require('./routes/main.js')(app);
 
-
-console.log('Up on port 5000')
-app.listen(5000)
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
