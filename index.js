@@ -7,6 +7,8 @@ app.set('port', (process.env.PORT || 5000));
 app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'views'));
 
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(require('express-partial-templates')(app));
 app.engine('html', require('hogan-express-strict'));
  
