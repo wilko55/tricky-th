@@ -1,39 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Neighbourhood Flower Shop</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <style>
-    /* Remove the navbar's default rounded borders and increase the bottom margin */ 
-    .navbar {
-      margin-bottom: 50px;
-      border-radius: 0;
-    }
-    
-    /* Remove the jumbotron's default bottom margin */ 
-     .jumbotron {
-      margin-bottom: 0;
-    }
-   
-    /* Add a gray background color and some padding to the footer */
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-    }
-  </style>
+  <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+  <link rel="stylesheet" href="/stylesheets/custom.css">
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
-
-<div class="jumbotron">
-  <div class="container text-center">
-    <h1>The New Neighbourbood Flower Shop</h1>      
-    <p>The rose amongst your thorns</p>
-  </div>
-</div>
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
@@ -47,39 +23,68 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Products</a></li>
-        <li><a href="#">Contact</a></li>
+        <li class="active"><a href="#top">Home</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Contact</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><input type="text" class="form-control" style="padding-bottom:-20px; margin-top:8px" size="10" placeholder="#123456789"></li>
-        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Track your order</a></li>
-      </ul>
+      <form method="POST" action="/tracking" class="trackingForm">
+        <ul class="nav navbar-nav navbar-right">
+          <li><input type="text" name="trackingNumber" class="form-control" style="padding-bottom:-20px; margin-top:8px" size="12" placeholder="#123456789"></li>
+          <li><button class="btn-link tracking-button" type="submit" style="padding-top:13px"><span class="glyphicon glyphicon-shopping-cart"></span> Track your order</button></li>
+        </ul>
+      </form>
     </div>
   </div>
 </nav>
 
+<a name="top"></a>
+{{#messages}}
+<div class="container"> 
+  <div class="panel panel-success" style="margin-bottom:0px;">
+    <div class="panel-heading">
+      {{messages}}
+    </div>
+  </div>
+</div>
+{{/messages}}
+{{#error}}
+<div class="container"> 
+  <div class="panel panel-danger" style="margin-bottom:0px;">
+    <div class="panel-heading">
+      {{error}}
+    </div>
+  </div>
+</div>
+{{/error}}
+
+<div class="jumbotron" style="background-color:none !important">
+  <div class="container text-center">
+    <img style="height:160px;" src="images/main-logo.png">     
+    <h4>The rose amongst the thorns</h4>
+  </div>
+</div>
 <div class="container">    
   <div class="row">
     <div class="col-sm-4">
+      <a name="products"></a>
       <div class="panel panel-danger">
         <div class="panel-heading">OUT OF STOCK</div>
-        <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Rose collection</div>
+        <div class="panel-body"><img src="images/flowers1.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+        <div class="panel-footer">Painted whites</div>
       </div>
     </div>
     <div class="col-sm-4"> 
       <div class="panel panel-danger">
         <div class="panel-heading">OUT OF STOCK</div>
-        <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Raspberry ripple</div>
+        <div class="panel-body"><img src="images/flowers2.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+        <div class="panel-footer">Punchy pinks</div>
       </div>
     </div>
     <div class="col-sm-4"> 
       <div class="panel panel-danger">
         <div class="panel-heading">OUT OF STOCK</div>
-        <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">Cotton candy collection</div>
+        <div class="panel-body"><img src="images/flowers3.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+        <div class="panel-footer">Tie die surprise</div>
       </div>
     </div>
   </div>
@@ -90,34 +95,81 @@
     <div class="col-sm-4">
       <div class="panel panel-danger">
         <div class="panel-heading">OUT OF STOCK</div>
-        <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">card</div>
+        <div class="panel-body"><img src="images/flowers4.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+        <div class="panel-footer">Purple haze</div>
       </div>
     </div>
     <div class="col-sm-4"> 
       <div class="panel panel-danger">
         <div class="panel-heading">OUT OF STOCK</div>
-        <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">card</div>
+        <div class="panel-body"><img src="images/flowers5.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+        <div class="panel-footer">Roses</div>
       </div>
     </div>
     <div class="col-sm-4"> 
       <div class="panel panel-danger">
         <div class="panel-heading">OUT OF STOCK</div>
-        <div class="panel-body"><img src="http://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer">card</div>
+        <div class="panel-body"><img src="images/flowers6.jpg" class="img-responsive" style="width:100%" alt="Image"></div>
+        <div class="panel-footer">Black eyed Susans</div>
       </div>
     </div>
   </div>
 </div><br><br>
 
 <footer class="container-fluid text-center">
-  <p>Copyright Neighbourhood Flower Shop 2016</p>  
-  <form class="form-inline">Get deals:
+  <form class="form-inline" id="">
     <input type="email" class="form-control" size="50" placeholder="Email Address">
-    <button type="button" class="btn btn-danger">Sign Up</button>
-  </form>
+    <button type="submit" class="btn btn-danger">Join our mailing list</button>
+  </form><br>
+  <p>Copyright Neighbourhood Flower Shop 2016</p>  
 </footer>
 
+
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Comments, issues, just want to say hi? Drop us a line here</h4>
+      </div>
+      <form method="POST" action="/feedback" class="feedbackForm">
+        <div class="modal-body">
+          <div class="row">
+            <div class="form-group"> 
+              <label for="email" class="col-sm-2 control-label">
+                Email
+              </label> 
+              <div class="col-sm-10"> 
+                <input class="form-control" id="email" name="email" placeholder="Email"> 
+              </div> 
+            </div>
+            <div class="form-group"> 
+              <label for="feedbackBody" class="col-sm-2 control-label">
+                Feedback
+              </label> 
+              <div class="col-sm-10"> 
+                <textarea class="form-control" name="feedbackBody" id="feedbackBody"></textarea>
+              </div> 
+            </div> 
+          </div>
+        </div> 
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default feedback-button" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+  <script>
+    $('button.tracking-button').click( function() {
+        $('form.trackingForm').submit();
+    });
+    $('button.feedback-button').click( function() {
+        $('form.feedbackForm').submit();
+    });
+  </script>
 </body>
 </html>
