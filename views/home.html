@@ -28,6 +28,9 @@
         <li><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">Contact</a></li>
       </ul>
       <form method="POST" action="/tracking" class="trackingForm">
+        {{#email}}
+          <input type="text" hidden="true" value="{{email}}" name="hiddenEmail">
+        {{/email}}
         <ul class="nav navbar-nav navbar-right">
           <li><input type="text" name="trackingNumber" class="form-control" style="padding-bottom:-20px; margin-top:8px" size="12" placeholder="#123456789"></li>
           <li><button class="btn-link tracking-button" type="submit" style="padding-top:13px"><span class="glyphicon glyphicon-shopping-cart"></span> Track your order</button></li>
@@ -60,7 +63,7 @@
 <div class="jumbotron" style="background-color:none !important">
   <div class="container text-center">
     <img style="height:160px;" src="images/main-logo.png">     
-    <h4>The rose amongst the thorns</h4>
+    <h4>A rose amongst thorns</h4>
   </div>
 </div>
 <div class="container">    

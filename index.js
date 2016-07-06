@@ -5,6 +5,8 @@ var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+// var DB = require('./data/connection')();
+var models = require("./data/models");
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -22,9 +24,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(require('express-partial-templates')(app));
 app.engine('html', require('hogan-express-strict'));
- 
+
 require('./routes/main.js')(app);
 
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
+models.sequelize.sync().then(function () {  
+  app.listen(app.get('port'), function() {
+    console.log('Node app is running on port', app.get('port'));
+  });
 });

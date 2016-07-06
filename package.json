@@ -27,9 +27,12 @@
     "express-session": "^1.13.0",
     "hjs": "~0.0.6",
     "hogan-express-strict": "^0.5.4",
+    "js-base64": "^2.1.9",
     "knex": "^0.10.0",
     "mailgun-js": "^0.7.10",
     "moment": "^2.13.0",
-    "passport-local": "^0.1.6"
+    "mysql": "^2.11.1",
+    "passport-local": "^0.1.6",
+    "sequelize": "^3.23.4"
   }
 }
