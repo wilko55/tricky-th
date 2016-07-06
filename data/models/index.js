@@ -8,7 +8,7 @@ var config = require('../../config').config();
 var sequelize = new Sequelize('flowershop', config.database.user, config.database.password, {
       host: 'localhost',
       dialect: 'mysql',
-      port: 3307,
+      port: config.database.port,
       pool: {
         max: 5,
         min: 0,
