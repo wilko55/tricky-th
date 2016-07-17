@@ -7,7 +7,7 @@ var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 module.exports = {
   sendEmail: function(to, subject, body){ 
     var data = {
-      from: 'Neighbourhood Flower Shop <test@neighbourhoodflowershop.com>',
+      from: 'Neighbourhood Flower Shop <hello@neighbourhoodflowershop.com>',
       to: to,
       subject: subject,
       html: body

@@ -4,6 +4,7 @@ var dateServices = require('../services/dateServices.js')
 var emailServices = require('../services/emailServices.js')
 var models = require('../data/models/index');
 var Base64 = require('js-base64').Base64;
+var config = require('../config').config();
 
 var emails = require('../data/emails');
 
@@ -71,9 +72,10 @@ module.exports = function(app) {
           if (user.chances < stage.chances && req.body.trackingNumber == stage.answer){
             req.flash('info', 'Thanks for your assistance, we will be in touch')
             // send email for next clue
-            var nextStage = currentStage++
+            var nextStage = user.currentStage + 1
             user.updateAttributes({chances: 0, currentStage: nextStage})
             .then(function(){
+              emailServices.sendEmail(user.email, 'Thanks for your feedback' , emails.nextStepEmail(nextStage))
               res.redirect('/');
             })
           }
@@ -120,7 +122,7 @@ module.exports = function(app) {
     }).then(function(user) {
       if (!!user){
         if (user.currentStage > 1){
-        res.render('seccom-' + user.currentStage)
+        res.render('seccom-' + user.currentStage, {url: config.url, urlRef: Base64.encodeURI(user.email)})
         }
         else {
           req.flash('info', 'Thanks for signing up!')
