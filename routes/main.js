@@ -9,7 +9,6 @@ var emails = require('../data/emails');
 
 module.exports = function(app) {
   app.get('/', function(req,res, next) {
-
     // emailServices.testEmail();
     res.render('home', { messages: req.flash('info'), error: req.flash('error') })
   })
@@ -29,7 +28,6 @@ module.exports = function(app) {
           email: req.body.email
         }
       }).then(function(user) {
-        console.log(user)
         if (user != null){
           req.flash('info', 'Thanks for your feedback, please check your inbox!')
           res.redirect('/');
@@ -50,6 +48,7 @@ module.exports = function(app) {
   })
 
   app.post('/tracking', function(req, res, next) {
+    // makes sure there's an email to check the db for
     if (typeof req.body.hiddenEmail == 'undefined'){
       req.flash('error', 'Tracking number not found')
       res.redirect('/');
@@ -61,22 +60,24 @@ module.exports = function(app) {
       }
     }).then(function(user) {
       if (user){
+        // if user is found in db
         var currentStage = user.currentStage
         models.Stage.find({
           where: {
             stage: currentStage
           }
         }).then(function(stage){
-          // correnct answer
-          if (user && user.chances < stage.chances && req.body.trackingNumber == stage.answer){
+          // if correct answer
+          if (user.chances < stage.chances && req.body.trackingNumber == stage.answer){
             req.flash('info', 'Thanks for your assistance, we will be in touch')
             // send email for next clue
-            user.updateAttributes({chances: 0, currentStage: 2})
+            var nextStage = currentStage++
+            user.updateAttributes({chances: 0, currentStage: nextStage})
             .then(function(){
               res.redirect('/');
             })
           }
-          else if (user && user.chances < stage.chances && req.body.trackingNumber != stage.answer){
+          else if (user.chances < stage.chances && req.body.trackingNumber != stage.answer){
             // got another chance but answer incorrect
             user.increment('chances')
             .then(function(){
@@ -84,7 +85,7 @@ module.exports = function(app) {
               res.redirect('/ref=' + req.body.hiddenEmail);
             })
           }
-          else if (user && user.chances == stage.chances){
+          else if (user.chances == stage.chances){
             // out of chances
             user.updateAttributes({exitStage: currentStage})
             .then(function(){
@@ -104,10 +105,32 @@ module.exports = function(app) {
           }  
         })
       }
-      else{
-            req.flash('error', 'Tracking number not found')
-            res.redirect('/');
-          }  
+      else {
+        req.flash('error', 'Tracking number not found')
+        res.redirect('/');
+      }  
     })
   })
+
+  app.post('/mailinglist', function(req, res, next) {
+    models.User.find({
+      where: {
+        email: req.body.emailMailingList
+      }
+    }).then(function(user) {
+      if (!!user){
+        if (user.currentStage > 1){
+        res.render('seccom-' + user.currentStage)
+        }
+        else {
+          req.flash('info', 'Thanks for signing up!')
+          res.redirect('/');
+        }
+      }
+      else {
+          req.flash('info', 'Thanks for signing up!')
+          res.redirect('/');
+        }
+    })
+  });
 }

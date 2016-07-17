@@ -2,7 +2,7 @@ var moment = require('moment');
 
 module.exports = {
   checkFeedbackDate: function(date){
-    if ((date.day() === 2 || date.day() == 3 || date.day() == 5) && (date.hour() > 7 && date.hour() < 24)){
+    if ((date.day() === 1 || date.day() == 3 || date.day() == 4 || date.day() == 5) && (date.hour() > 8 && date.hour() < 22)){
       return true
 
     }
