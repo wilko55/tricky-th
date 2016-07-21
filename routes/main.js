@@ -69,7 +69,14 @@ module.exports = function(app) {
           }
         }).then(function(stage){
           // if correct answer
-          if (user.chances < stage.chances && req.body.trackingNumber == stage.answer){
+          var answers = stage.answer.split('|')
+          var guess = req.body.trackingNumber.toLowerCase().replace(/\s/g, '');
+          var isCorrect = false;
+          if (answers.indexOf(guess) != -1){
+            isCorrect = true
+          }
+
+          if (user.chances < stage.chances && isCorrect === true){
             req.flash('info', 'Thanks for your assistance, we will be in touch')
             // send email for next clue
             var nextStage = user.currentStage + 1
@@ -79,7 +86,8 @@ module.exports = function(app) {
               res.redirect('/');
             })
           }
-          else if (user.chances < stage.chances && req.body.trackingNumber != stage.answer){
+          else if (user.chances < stage.chances && isCorrect === false){
+            console.log('in here, correct:', isCorrect)
             // got another chance but answer incorrect
             user.increment('chances')
             .then(function(){
@@ -121,7 +129,7 @@ module.exports = function(app) {
       }
     }).then(function(user) {
       if (!!user){
-        if (user.currentStage > 1){
+        if (user.currentStage > 1 && user.rejectionSent == 0){
         res.render('seccom-' + user.currentStage, {url: config.url, urlRef: Base64.encodeURI(user.email)})
         }
         else {

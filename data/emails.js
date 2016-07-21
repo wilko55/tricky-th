@@ -37,6 +37,15 @@ module.exports = {
           You will not hear from us again. Do not attempt to communicate with us as we will disavow all knowledge of you.
         `
         break;
+      case 2:
+        return `
+          ******************** SECURE TRANSMISSION ********************<br><br>
+          We have deployed all of our intelligence analysts to scour the areas you suggested, however no information has been found. We must therefore conclude that you gave us incorrect information. 
+          <br><br>We are sorry to have put such faith in you. With so much time wasted, we now have no chance of recovering our agent safely.
+          <br><br>
+          You will not hear from us again. Do not attempt to communicate with us as we will disavow all knowledge of you.
+        `
+        break;
     }
   },
   nextStepEmail: function(nextStage, urlRef){
@@ -48,6 +57,14 @@ module.exports = {
           This agent was one of our best, so don't expect the next problem to be so simple.<br><br>
           Once unlocked, our technical staff found only one contact on the phone - and an unusual background image. At this stage, an exposed agent would be expected to establish a dead drop to leave mission critical documents so we believe the contact and image is a link to an address. Give us a postcode and we'll do the rest. 
           Go to <a href="` + config.url + `">the NFS homepage</a> and, enter your email address at the bottom of the page, and click 'Join our mailing list'.<br><br>
+          Your friends,<br>
+          Neighbourhood Flower Shop
+        `
+        break;
+      case 3:
+        return `
+          ******************** SECURE TRANSMISSION ********************<br><br>
+          We've dispatched teams to the areas you have suggested. We shall be in touch shorty.<br><br>
           Your friends,<br>
           Neighbourhood Flower Shop
         `
